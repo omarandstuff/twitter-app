@@ -4,11 +4,8 @@ describe Api::V1::AuthenticationController, type: :request do
   describe 'POST #log_in' do
     describe 'when providing right credentials' do
       it 'returns the user' do
-        user = User.create email: 'david@twitter.com', password: 'secret'
+        user = User.create name: 'david', email: 'david@twitter.com', password: 'secret'
 
-        post '/api/v1/log_in', params: { email: 'david@twitter.com', password: 'secret' }, headers: { 'ACCEPT' => 'application/json' }
-        post '/api/v1/log_in', params: { email: 'david@twitter.com', password: 'secret' }, headers: { 'ACCEPT' => 'application/json' }
-        post '/api/v1/log_in', params: { email: 'david@twitter.com', password: 'secret' }, headers: { 'ACCEPT' => 'application/json' }
         post '/api/v1/log_in', params: { email: 'david@twitter.com', password: 'secret' }, headers: { 'ACCEPT' => 'application/json' }
         expect(response).to render_template('api/v1/authentication/log_in')
       end
@@ -16,16 +13,16 @@ describe Api::V1::AuthenticationController, type: :request do
 
     describe 'when providing guffy token' do
       it 'returns the user' do
-        user = User.create email: 'david@twitter.com', password: 'secret'
+        user = User.create name: 'david', email: 'david@twitter.com', password: 'secret'
 
         post '/api/v1/log_in', params: { token: user.id }, headers: { 'ACCEPT' => 'application/json' }
-        # expect(response).to render_template('api/v1/authentication/log_in')
+        expect(response).to render_template('api/v1/authentication/log_in')
       end
     end
 
     describe 'when providing wrong credentials' do
       it 'returns bad request' do
-        user = User.create email: 'david@twitter.com', password: 'secret'
+        user = User.create name: 'david', email: 'david@twitter.com', password: 'secret'
 
         post '/api/v1/log_in', params: { email: 'david@tango.io', password: 'bad' }, headers: { 'ACCEPT' => 'application/json' }
         expect(response).to_not render_template('api/v1/authentication/log_in')
