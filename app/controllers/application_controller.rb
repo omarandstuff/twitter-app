@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery unless: -> { request.format.json? }
   attr_reader :current_user
 
   def entry

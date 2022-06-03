@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
       get 'tweets', to: 'tweets#index'
       post 'tweets', to: 'tweets#create'
+      delete 'tweets/:id', to: 'tweets#destroy'
+
+      post 'likes/:id', to: 'likes#create'
+      delete 'likes/:id', to: 'likes#destroy'
     end
   end
 

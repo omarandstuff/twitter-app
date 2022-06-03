@@ -16,10 +16,10 @@ class Api::V1::AuthenticationController < ApplicationController
   private
 
   def log_in_params
-    params.permit(:email, :password, :token)
+    params.require(:authentication).permit(:email, :password, :token)
   end
 
   def sign_up_params
-    params.permit(:name, :email, :password)
+    params.require(:authentication).permit(:name, :email, :password)
   end
 end
