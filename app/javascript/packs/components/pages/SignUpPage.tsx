@@ -35,7 +35,7 @@ export default function SignUpPage(): React.ReactElement {
   return (
     <div className="auth-page">
       <div className="form">
-        <h2>Create a "Tweitter" account</h2>
+        <h2>Create a "Twitter" account</h2>
         <span>Name</span>
         <input type="text" name="name" value={name} onChange={onChange}></input>
         <span>Email</span>

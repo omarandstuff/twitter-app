@@ -25,6 +25,12 @@ rails server
 
 now you can visit the app in your browser via http://localhost:3000
 
+## Run the tests
+
+```shell
+bundle exec rspec spec
+```
+
 # Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/omarandstuff/game_of_life. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to be kind.

@@ -31,7 +31,7 @@ export default function LogInPage(): React.ReactElement {
   return (
     <div className="auth-page">
       <div className="form">
-        <h2>Log In to "Tweitter"</h2>
+        <h2>Log In to "Twitter"</h2>
         <span>Email</span>
         <input type="email" name="email" value={email} onChange={onChange}></input>
         <span>Password</span>
