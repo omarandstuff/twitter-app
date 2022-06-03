@@ -8,10 +8,15 @@ import SignUpPage from './components/pages/SignUpPage'
 
 export default function App(): React.ReactElement {
   const [loading, setLoading] = React.useState(true)
+  const [loggedIn, setLoggedIn] = React.useState(false)
 
   React.useEffect((): void => {
     appCore.once('loaded', (): void => {
       setLoading(false)
+    })
+
+    appCore.on('auth', (loggedIn: boolean): void => {
+      setLoggedIn(loggedIn)
     })
 
     appCore.load()
@@ -21,9 +26,9 @@ export default function App(): React.ReactElement {
     <BrowserRouter>
       <Layout loading={loading}>
         <Routes>
-          <Route index element={appCore.currentUser ? <MainPage /> : <Navigate to="/authentication/login" />}></Route>
+          <Route index element={loggedIn ? <MainPage /> : <Navigate to="/authentication/login" />}></Route>
           <Route path="/authentication/login" element={<LogInPage />}></Route>
-          <Route path="/authentication/login" element={<SignUpPage />}></Route>
+          <Route path="/authentication/signup" element={<SignUpPage />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -15,9 +15,17 @@ export default class Api {
   }
 
   public async logIn(email?: string, password?: string, token?: string): Promise<User> {
-    const data = await this.commonFetch('POST', 'log_in', { email, password, token })
+    try {
+      const data = await this.commonFetch('POST', 'log_in', { authentication: { email, password, token } })
+      return new User(data.user)
+    } catch {}
+  }
 
-    return new User(data.user)
+  public async signUp(name: string, email: string, password: string): Promise<User> {
+    try {
+      const data = await this.commonFetch('POST', 'sign_up', { authentication: { name, email, password } })
+      return new User(data.user)
+    } catch {}
   }
 
   protected async commonFetch(method: string, path: string, body: any): Promise<any> {

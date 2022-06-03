@@ -13,23 +13,50 @@ export default class AppCore extends EventEmitter {
     if (token) {
       const user = await this.api.logIn(null, null, token)
 
-      if (user) {
-        const token = `${user.id}`
-        this.saveAuthToken(token)
-        this.api.setAuthToken(token)
-
-        this.currentUser = user
-      }
+      if (user) this.setAuth(user)
     }
 
     this.emit('loaded')
   }
 
-  public getAuthToken(): string {
+  public async logIn(email?: string, password?: string, token?: string): Promise<boolean> {
+    const user = await this.api.logIn(email, password, token)
+
+    if (user) {
+      this.setAuth(user)
+
+      return true
+    }
+
+    return false
+  }
+
+  public async signUp(name: string, email: string, password: string): Promise<boolean> {
+    const user = await this.api.signUp(name, email, password)
+
+    if (user) {
+      this.setAuth(user)
+
+      return true
+    }
+
+    return false
+  }
+
+  private setAuth(user: User): void {
+    const token = `${user.id}`
+    this.saveAuthToken(token)
+    this.api.setAuthToken(token)
+    this.currentUser = user
+
+    this.emit('auth', true)
+  }
+
+  private getAuthToken(): string {
     return localStorage.getItem('auth')
   }
 
-  public saveAuthToken(token: string): void {
+  private saveAuthToken(token: string): void {
     localStorage.setItem('auth', token)
   }
 }
