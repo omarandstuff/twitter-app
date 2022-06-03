@@ -1,24 +1,34 @@
-# README
+# Twitter demo App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a demo app, completely assambled with rails, the rails app serves the same react app using webpack within any route except for the ones that falls into the api routes like `/api/v1/tweets`.
 
-Things you may want to cover:
+# Getting started
 
-* Ruby version
+After cloning the app make sure to have ruby `3.1.2` installed and then just:
 
-* System dependencies
+```shell
+bundle install
+rails db:create db:migrate db:seed
+```
 
-* Configuration
+Make sure to have yarn also installed in your system and then
 
-* Database creation
+```shell
+yarn install
+```
 
-* Database initialization
+That will let the app ready for you to test, so just run:
 
-* How to run the test suite
+```shell
+rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+now you can visit the app in your browser via http://localhost:3000
 
-* Deployment instructions
+# Contributing
 
-* ...
+Bug reports and pull requests are welcome on GitHub at https://github.com/omarandstuff/game_of_life. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to be kind.
+
+# License
+
+The project is available as open source under the terms of the MIT License.
