@@ -1,5 +1,5 @@
 first_user = User.create!(name: 'david', email: 'david@twitter.com', password: '12345678')
-second_user = User.create!(name: 'david', email: 'omar@twitter.com', password: '12345678')
+second_user = User.create!(name: 'omar', email: 'omar@twitter.com', password: '12345678')
 
 first_tweet = Tweet.create!(content: 'This is a tweet', user: first_user)
 

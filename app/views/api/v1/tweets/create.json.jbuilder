@@ -1,7 +1,7 @@
 json.tweet do
   json.id @tweet.id
   json.content @tweet.content
-  json.reteets @tweet.quoter_tweets.count
+  json.retweets @tweet.quoter_tweets.count
   json.likes @tweet.likes.count
 
   if @tweet.quoted_tweet

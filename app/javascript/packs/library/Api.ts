@@ -1,3 +1,4 @@
+import Tweet from './models/Tweet'
 import User from './models/User'
 
 export default class Api {
@@ -28,7 +29,39 @@ export default class Api {
     } catch {}
   }
 
-  protected async commonFetch(method: string, path: string, body: any): Promise<any> {
+  public async getTweets(): Promise<Tweet[]> {
+    try {
+      const data = await this.commonFetch('GET', 'tweets')
+      return data.tweets.map((rawTweet: any): Tweet => new Tweet(rawTweet))
+    } catch {}
+  }
+
+  public async createTweet(content?: string, quotedTweetId?: number): Promise<Tweet> {
+    try {
+      const data = await this.commonFetch('POST', 'tweets', { content, quoted_tweet_id: quotedTweetId })
+      return new Tweet(data.tweet)
+    } catch {}
+  }
+
+  public async destroyTweet(id: number): Promise<void> {
+    try {
+      await this.commonFetch('DELETE', `tweets/${id}`)
+    } catch {}
+  }
+
+  public async likeTweet(id: number): Promise<void> {
+    try {
+      await this.commonFetch('POST', `likes/${id}`)
+    } catch {}
+  }
+
+  public async unlikeTweet(id: number): Promise<void> {
+    try {
+      await this.commonFetch('DELETE', `likes/${id}`)
+    } catch {}
+  }
+
+  protected async commonFetch(method: string, path: string, body?: any): Promise<any> {
     const response = await fetch(`${this.baseUrl}/api/${this.version}/${path}`, {
       method: method,
       mode: 'cors',
@@ -36,7 +69,7 @@ export default class Api {
         'Content-Type': 'application/json',
         Authorization: `Goffy ${this.token}`
       },
-      body: JSON.stringify(body)
+      body: body ? JSON.stringify(body) : undefined
     })
 
     return await response.json()

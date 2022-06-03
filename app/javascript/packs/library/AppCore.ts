@@ -43,6 +43,12 @@ export default class AppCore extends EventEmitter {
     return false
   }
 
+  public logOut(): void {
+    this.removeAuthToken()
+    this.currentUser = null
+    this.emit('auth', false)
+  }
+
   private setAuth(user: User): void {
     const token = `${user.id}`
     this.saveAuthToken(token)
@@ -58,5 +64,9 @@ export default class AppCore extends EventEmitter {
 
   private saveAuthToken(token: string): void {
     localStorage.setItem('auth', token)
+  }
+
+  private removeAuthToken(): void {
+    localStorage.removeItem('auth')
   }
 }

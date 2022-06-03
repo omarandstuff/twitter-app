@@ -8,7 +8,7 @@ class Api::V1::TweetsController < ApplicationController
     if user
       @tweets = user.tweets
     else
-      @tweets = Tweet.all
+      @tweets = Tweet.all.order(id: 'DESC')
     end
   end
 
